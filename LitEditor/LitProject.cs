@@ -83,10 +83,10 @@ namespace LitEditor
                         int colorZ = br.ReadInt32();
 
                         Light light = new Light();
-                        light.Position = Float3.FromFileFormat(positionX, positionY, positionZ);
+                        light.Position = Float3.FromFileFormatPos(positionX, positionY, positionZ);
                         light.Unknown1 = unknown1;
                         light.Unknown2 = unknown2;
-                        light.Color = Float3.FromFileFormat(colorX, colorY, colorZ);
+                        light.Color = Float3.FromFileFormatCol(colorX, colorY, colorZ);
 
                         AddLightItem(light);
                     }
@@ -154,7 +154,7 @@ namespace LitEditor
                     {
                         if (light.Enabled)
                         {
-                            light.Position.ToFileFormat(out x, out y, out z);
+                            light.Position.ToFileFormatPos(out x, out y, out z);
                             bw.Write(x);
                             bw.Write(y);
                             bw.Write(z);
@@ -162,7 +162,7 @@ namespace LitEditor
                             bw.Write(light.Unknown1);
                             bw.Write(light.Unknown2);
 
-                            light.Color.ToFileFormat(out x, out y, out z);
+                            light.Color.ToFileFormatCol(out x, out y, out z);
                             bw.Write(x);
                             bw.Write(y);
                             bw.Write(z);

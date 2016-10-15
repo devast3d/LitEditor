@@ -41,18 +41,32 @@ namespace LitEditor
             return !value0.Equals(value1);
         }
 
-        public static Float3 FromFileFormat(int x, int y, int z)
+        public static Float3 FromFileFormatPos(int x, int y, int z)
         {
             float m = 1.0f / 1024f;
             Float3 result = new Float3(x * m, y * m, z * m);
             return result;
         }
 
-        public void ToFileFormat(out int x, out int y, out int z)
+        public void ToFileFormatPos(out int x, out int y, out int z)
         {
             x = (int)Math.Round(X * 1024, MidpointRounding.AwayFromZero);
             y = (int)Math.Round(Y * 1024, MidpointRounding.AwayFromZero);
             z = (int)Math.Round(Z * 1024, MidpointRounding.AwayFromZero);
+        }
+
+        public static Float3 FromFileFormatCol(int x, int y, int z)
+        {
+            float m = 1.0f / 256f;
+            Float3 result = new Float3(x * m, y * m, z * m);
+            return result;
+        }
+
+        public void ToFileFormatCol(out int x, out int y, out int z)
+        {
+            x = (int)Math.Round(X * 256, MidpointRounding.AwayFromZero);
+            y = (int)Math.Round(Y * 256, MidpointRounding.AwayFromZero);
+            z = (int)Math.Round(Z * 256, MidpointRounding.AwayFromZero);
         }
     }
     
