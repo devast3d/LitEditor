@@ -47,11 +47,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Light.cs" />
-    <Compile Include="LitEditor.cs">
+    <Compile Include="LitEditorForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LitEditor.Designer.cs">
-      <DependentUpon>LitEditor.cs</DependentUpon>
+    <Compile Include="LitEditorForm.Designer.cs">
+      <DependentUpon>LitEditorForm.cs</DependentUpon>
     </Compile>
     <Compile Include="LitEntryControl.cs">
       <SubType>UserControl</SubType>
@@ -62,8 +62,9 @@
     <Compile Include="LitProject.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="LitEditor.resx">
-      <DependentUpon>LitEditor.cs</DependentUpon>
+    <Compile Include="UIMisc.cs" />
+    <EmbeddedResource Include="LitEditorForm.resx">
+      <DependentUpon>LitEditorForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LitEntryControl.resx">
       <DependentUpon>LitEntryControl.cs</DependentUpon>

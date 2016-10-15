@@ -16,7 +16,7 @@ namespace LitEditor
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new LitEditor());
+            Application.Run(new LitEditorForm());
         }
     }
 }

@@ -13,13 +13,11 @@
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
-[Rr]elease/
 [Rr]eleases/
 [Xx]64/
 [Xx]86/
 [Bb]uild/
 bld/
-[Bb]in/
 [Oo]bj/
 
 # Visual Studio 2015 cache/options directory
@@ -240,3 +238,7 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+LitEditor/bin/Release/LitEditor.exe.config
+LitEditor/bin/Release/LitEditor.vshost.exe.config
+LitEditor/bin/Release/LitEditor.vshost.exe.manifest
+LitEditor/bin/Release/LitEditor.vshost.exe
