@@ -75,18 +75,18 @@ namespace LitEditor
                         int positionY = br.ReadInt32();
                         int positionZ = br.ReadInt32();
 
-                        int unknown1 = br.ReadInt32();
-                        int unknown2 = br.ReadInt32();
-
-                        int colorX = br.ReadInt32();
+                        uint flags = br.ReadUInt32();
+                        int unknown = br.ReadInt32();
+						
+						int colorX = br.ReadInt32();
                         int colorY = br.ReadInt32();
                         int colorZ = br.ReadInt32();
 
                         Light light = new Light();
-                        light.Position = Float3.FromFileFormatPos(positionX, positionY, positionZ);
-                        light.Unknown1 = unknown1;
-                        light.Unknown2 = unknown2;
-                        light.Color = Float3.FromFileFormatCol(colorX, colorY, colorZ);
+                        light.Position = Float3.FromFileFormatPosition(positionX, positionY, positionZ);
+                        light.SetFlags(flags);
+                        light.Unknown = LightUtil.FromFileFormatPosition(unknown);
+                        light.Color = Float3.FromFileFormatColor(colorX, colorY, colorZ);
 
                         AddLightItem(light);
                     }
@@ -154,15 +154,18 @@ namespace LitEditor
                     {
                         if (light.Enabled)
                         {
-                            light.Position.ToFileFormatPos(out x, out y, out z);
+                            light.Position.ToFileFormatPosition(out x, out y, out z);
                             bw.Write(x);
                             bw.Write(y);
                             bw.Write(z);
 
-                            bw.Write(light.Unknown1);
-                            bw.Write(light.Unknown2);
+							uint flags = light.GetFlags();
+                            bw.Write(flags);
 
-                            light.Color.ToFileFormatCol(out x, out y, out z);
+							int unknown = LightUtil.ToFileFormatPosition(light.Unknown);
+                            bw.Write(unknown);
+
+                            light.Color.ToFileFormatColor(out x, out y, out z);
                             bw.Write(x);
                             bw.Write(y);
                             bw.Write(z);

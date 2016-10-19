@@ -45,13 +45,50 @@ namespace LitEditor
             _positionX_textBox.Text = position.X.ToString();
             _positionY_textBox.Text = position.Y.ToString();
             _positionZ_textBox.Text = position.Z.ToString();
-            _unknown1_textBox.Text = _light.Unknown1.ToString();
-            _unknown2_textBox.Text = _light.Unknown2.ToString();
+			UpdateFlags();
+            _unknown_textBox.Text = _light.Unknown.ToString();
             Float3 color = _light.Color;
             _colorR_textBox.Text = color.X.ToString();
             _colorG_textBox.Text = color.Y.ToString();
             _colorB_textBox.Text = color.Z.ToString();
         }
+
+		private void UpdateFlags()
+		{
+			_light.ChangedEventEnabled = false;
+			uint flags = _light.GetFlags();
+
+			System.Text.StringBuilder flagsString = new StringBuilder(Convert.ToString(flags, 2));
+			while (flagsString.Length < 6)
+			{
+				flagsString.Insert(0, '0');
+			}
+			flagsString.Insert(2, ' ');
+			flagsString.Insert(5, ' ');
+			_flags_textBox.Text = flagsString.ToString();
+
+			_shadow_checkBox.Checked = _light.IsShadow;
+			_light_checkBox.Checked = _light.IsLight;
+
+			_dir_checkBox.Checked = _truePoint_checkBox.Checked = _point_checkBox.Checked = false;			
+			if (_light.Type == LightType.Directional)
+			{
+				_dir_checkBox.Checked = true;
+			}
+			else if (_light.Type == LightType.TruePoint)
+			{
+				_truePoint_checkBox.Checked = true;
+			}
+			else
+			{
+				_point_checkBox.Checked = true;
+			}
+
+			_furn_checkBox.Checked = _light.IsFurn;
+			_base_checkBox.Checked = _light.IsBase;
+
+			_light.ChangedEventEnabled = true;
+		}
 
         private void _enabled_checkBox_CheckedChanged(object sender, EventArgs e)
         {
@@ -96,21 +133,12 @@ namespace LitEditor
             }
         }
 
-        private void _unknown1_textBox_TextChanged(object sender, EventArgs e)
+        private void _unknown_textBox_TextChanged(object sender, EventArgs e)
         {
-            int value;
-            if (int.TryParse(_unknown1_textBox.Text, out value))
+            float value;
+            if (float.TryParse(_unknown_textBox.Text, out value))
             {
-                _light.Unknown1 = value;
-            }
-        }
-
-        private void _unknown2_textBox_TextChanged(object sender, EventArgs e)
-        {
-            int value;
-            if (int.TryParse(_unknown2_textBox.Text, out value))
-            {
-                _light.Unknown2 = value;
+                _light.Unknown = value;
             }
         }
 
@@ -147,16 +175,112 @@ namespace LitEditor
             }
         }
 
-        private void _position_textBox_Validating(object sender, CancelEventArgs e)
+        private void FloatValidating(object sender, CancelEventArgs e)
         {
             float temp;
             e.Cancel = !float.TryParse((sender as TextBox).Text, out temp);
         }
 
-        private void _unknown_textBox_Validating(object sender, CancelEventArgs e)
-        {
-            int temp;
-            e.Cancel = !int.TryParse((sender as TextBox).Text, out temp);
-        }
-    }
+		private void SetBehaviour(object sender, LightBehaviour flag)
+		{
+			CheckBox control = sender as CheckBox;
+			if (control.Checked)
+			{
+				_light.Behaviour |= flag;
+			}
+			else
+			{
+				_light.Behaviour &= ~flag;
+			}
+		}
+
+		private void _shadow_checkBox_CheckedChanged(object sender, EventArgs e)
+		{
+			SetBehaviour(sender, LightBehaviour.Shadow);
+		}
+
+		private void _light_checkBox_CheckedChanged(object sender, EventArgs e)
+		{
+			SetBehaviour(sender, LightBehaviour.Light);
+		}
+
+		private void _dir_checkBox_CheckedChanged(object sender, EventArgs e)
+		{
+			if (_dir_checkBox.Checked)
+			{
+				_light.Type = LightType.Directional;
+			}
+			else
+			{
+				if (_light.Type == LightType.Directional)
+				{
+					_dir_checkBox.CheckedChanged -= _dir_checkBox_CheckedChanged;
+					_dir_checkBox.Checked = true;
+					_dir_checkBox.CheckedChanged += _dir_checkBox_CheckedChanged;
+				}
+			}
+		}
+
+		private void _truePoint_checkBox_CheckedChanged(object sender, EventArgs e)
+		{
+			if (_truePoint_checkBox.Checked)
+			{
+				_light.Type = LightType.TruePoint;
+			}
+			else
+			{
+				if (_light.Type == LightType.TruePoint)
+				{
+					_truePoint_checkBox.CheckedChanged -= _truePoint_checkBox_CheckedChanged;
+					_truePoint_checkBox.Checked = true;
+					_truePoint_checkBox.CheckedChanged += _truePoint_checkBox_CheckedChanged;
+				}
+			}
+		}
+
+		private void _point_checkBox_CheckedChanged(object sender, EventArgs e)
+		{
+			if (_point_checkBox.Checked)
+			{
+				_light.Type = LightType.Point;
+			}
+			else
+			{
+				if (_light.Type == LightType.Point)
+				{
+					_point_checkBox.CheckedChanged -= _point_checkBox_CheckedChanged;
+					_point_checkBox.Checked = true;
+					_point_checkBox.CheckedChanged += _point_checkBox_CheckedChanged;
+				}
+			}
+		}
+
+		private void SetDomain(object sender, LightDomain flag)
+		{
+			CheckBox control = sender as CheckBox;
+			if (control.Checked)
+			{
+				_light.Domain |= flag;
+			}
+			else
+			{
+				_light.Domain &= ~flag;
+			}
+		}
+
+		private void _furn_checkBox_CheckedChanged(object sender, EventArgs e)
+		{
+			SetDomain(sender, LightDomain.Furn);
+		}
+
+		private void _base_checkBox_CheckedChanged(object sender, EventArgs e)
+		{
+			SetDomain(sender, LightDomain.Base);
+		}
+
+		private void _dir_checkBox_Validating(object sender, CancelEventArgs e)
+		{
+
+		}
+	}
 }

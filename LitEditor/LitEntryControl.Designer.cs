@@ -31,7 +31,7 @@
 			this._position_label = new System.Windows.Forms.Label();
 			this._positionX_textBox = new System.Windows.Forms.TextBox();
 			this._flags_label = new System.Windows.Forms.Label();
-			this._unknown2_textBox = new System.Windows.Forms.TextBox();
+			this._unknown_textBox = new System.Windows.Forms.TextBox();
 			this._colorR_textBox = new System.Windows.Forms.TextBox();
 			this._color_label = new System.Windows.Forms.Label();
 			this._positionY_textBox = new System.Windows.Forms.TextBox();
@@ -41,15 +41,18 @@
 			this._enabled_checkBox = new System.Windows.Forms.CheckBox();
 			this._enabled_label = new System.Windows.Forms.Label();
 			this._remove_button = new System.Windows.Forms.Button();
-			this.checkBox1 = new System.Windows.Forms.CheckBox();
-			this.checkBox2 = new System.Windows.Forms.CheckBox();
-			this.checkBox3 = new System.Windows.Forms.CheckBox();
-			this.checkBox4 = new System.Windows.Forms.CheckBox();
-			this.checkBox5 = new System.Windows.Forms.CheckBox();
-			this.checkBox6 = new System.Windows.Forms.CheckBox();
-			this.textBox5 = new System.Windows.Forms.TextBox();
-			this.label1 = new System.Windows.Forms.Label();
-			this.checkBox7 = new System.Windows.Forms.CheckBox();
+			this._shadow_checkBox = new System.Windows.Forms.CheckBox();
+			this._light_checkBox = new System.Windows.Forms.CheckBox();
+			this._dir_checkBox = new System.Windows.Forms.CheckBox();
+			this._furn_checkBox = new System.Windows.Forms.CheckBox();
+			this._point_checkBox = new System.Windows.Forms.CheckBox();
+			this._base_checkBox = new System.Windows.Forms.CheckBox();
+			this._flags_textBox = new System.Windows.Forms.TextBox();
+			this._unknown_label = new System.Windows.Forms.Label();
+			this._truePoint_checkBox = new System.Windows.Forms.CheckBox();
+			this._bit12_label = new System.Windows.Forms.Label();
+			this._bit34_label = new System.Windows.Forms.Label();
+			this._bit56_label = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
 			// _position_label
@@ -67,6 +70,7 @@
 			this._positionX_textBox.Name = "_positionX_textBox";
 			this._positionX_textBox.Size = new System.Drawing.Size(65, 20);
 			this._positionX_textBox.TabIndex = 1;
+			this._positionX_textBox.Validating += new System.ComponentModel.CancelEventHandler(this.FloatValidating);
 			// 
 			// _flags_label
 			// 
@@ -77,24 +81,26 @@
 			this._flags_label.TabIndex = 2;
 			this._flags_label.Text = "Flags";
 			// 
-			// _unknown2_textBox
+			// _unknown_textBox
 			// 
-			this._unknown2_textBox.Location = new System.Drawing.Point(62, 133);
-			this._unknown2_textBox.Name = "_unknown2_textBox";
-			this._unknown2_textBox.Size = new System.Drawing.Size(65, 20);
-			this._unknown2_textBox.TabIndex = 5;
+			this._unknown_textBox.Location = new System.Drawing.Point(62, 159);
+			this._unknown_textBox.Name = "_unknown_textBox";
+			this._unknown_textBox.Size = new System.Drawing.Size(65, 20);
+			this._unknown_textBox.TabIndex = 5;
+			this._unknown_textBox.Validating += new System.ComponentModel.CancelEventHandler(this.FloatValidating);
 			// 
 			// _colorR_textBox
 			// 
-			this._colorR_textBox.Location = new System.Drawing.Point(62, 159);
+			this._colorR_textBox.Location = new System.Drawing.Point(62, 185);
 			this._colorR_textBox.Name = "_colorR_textBox";
 			this._colorR_textBox.Size = new System.Drawing.Size(65, 20);
 			this._colorR_textBox.TabIndex = 6;
+			this._colorR_textBox.Validating += new System.ComponentModel.CancelEventHandler(this.FloatValidating);
 			// 
 			// _color_label
 			// 
 			this._color_label.AutoSize = true;
-			this._color_label.Location = new System.Drawing.Point(3, 162);
+			this._color_label.Location = new System.Drawing.Point(3, 188);
 			this._color_label.Name = "_color_label";
 			this._color_label.Size = new System.Drawing.Size(31, 13);
 			this._color_label.TabIndex = 7;
@@ -106,6 +112,7 @@
 			this._positionY_textBox.Name = "_positionY_textBox";
 			this._positionY_textBox.Size = new System.Drawing.Size(65, 20);
 			this._positionY_textBox.TabIndex = 8;
+			this._positionY_textBox.Validating += new System.ComponentModel.CancelEventHandler(this.FloatValidating);
 			// 
 			// _positionZ_textBox
 			// 
@@ -113,20 +120,23 @@
 			this._positionZ_textBox.Name = "_positionZ_textBox";
 			this._positionZ_textBox.Size = new System.Drawing.Size(65, 20);
 			this._positionZ_textBox.TabIndex = 9;
+			this._positionZ_textBox.Validating += new System.ComponentModel.CancelEventHandler(this.FloatValidating);
 			// 
 			// _colorG_textBox
 			// 
-			this._colorG_textBox.Location = new System.Drawing.Point(133, 159);
+			this._colorG_textBox.Location = new System.Drawing.Point(133, 185);
 			this._colorG_textBox.Name = "_colorG_textBox";
 			this._colorG_textBox.Size = new System.Drawing.Size(65, 20);
 			this._colorG_textBox.TabIndex = 10;
+			this._colorG_textBox.Validating += new System.ComponentModel.CancelEventHandler(this.FloatValidating);
 			// 
 			// _colorB_textBox
 			// 
-			this._colorB_textBox.Location = new System.Drawing.Point(204, 159);
+			this._colorB_textBox.Location = new System.Drawing.Point(204, 185);
 			this._colorB_textBox.Name = "_colorB_textBox";
 			this._colorB_textBox.Size = new System.Drawing.Size(65, 20);
 			this._colorB_textBox.TabIndex = 11;
+			this._colorB_textBox.Validating += new System.ComponentModel.CancelEventHandler(this.FloatValidating);
 			// 
 			// _enabled_checkBox
 			// 
@@ -157,107 +167,146 @@
 			this._remove_button.Text = "x";
 			this._remove_button.UseVisualStyleBackColor = true;
 			// 
-			// checkBox1
+			// _shadow_checkBox
 			// 
-			this.checkBox1.AutoSize = true;
-			this.checkBox1.Location = new System.Drawing.Point(62, 57);
-			this.checkBox1.Name = "checkBox1";
-			this.checkBox1.Size = new System.Drawing.Size(65, 17);
-			this.checkBox1.TabIndex = 16;
-			this.checkBox1.Text = "Shadow";
-			this.checkBox1.UseVisualStyleBackColor = true;
+			this._shadow_checkBox.AutoSize = true;
+			this._shadow_checkBox.Location = new System.Drawing.Point(62, 83);
+			this._shadow_checkBox.Name = "_shadow_checkBox";
+			this._shadow_checkBox.Size = new System.Drawing.Size(65, 17);
+			this._shadow_checkBox.TabIndex = 16;
+			this._shadow_checkBox.Text = "Shadow";
+			this._shadow_checkBox.UseVisualStyleBackColor = true;
+			this._shadow_checkBox.CheckedChanged += new System.EventHandler(this._shadow_checkBox_CheckedChanged);
 			// 
-			// checkBox2
+			// _light_checkBox
 			// 
-			this.checkBox2.AutoSize = true;
-			this.checkBox2.Location = new System.Drawing.Point(62, 83);
-			this.checkBox2.Name = "checkBox2";
-			this.checkBox2.Size = new System.Drawing.Size(49, 17);
-			this.checkBox2.TabIndex = 17;
-			this.checkBox2.Text = "Light";
-			this.checkBox2.UseVisualStyleBackColor = true;
+			this._light_checkBox.AutoSize = true;
+			this._light_checkBox.Location = new System.Drawing.Point(133, 83);
+			this._light_checkBox.Name = "_light_checkBox";
+			this._light_checkBox.Size = new System.Drawing.Size(49, 17);
+			this._light_checkBox.TabIndex = 17;
+			this._light_checkBox.Text = "Light";
+			this._light_checkBox.UseVisualStyleBackColor = true;
+			this._light_checkBox.CheckedChanged += new System.EventHandler(this._light_checkBox_CheckedChanged);
 			// 
-			// checkBox3
+			// _dir_checkBox
 			// 
-			this.checkBox3.AutoSize = true;
-			this.checkBox3.Location = new System.Drawing.Point(133, 57);
-			this.checkBox3.Name = "checkBox3";
-			this.checkBox3.Size = new System.Drawing.Size(76, 17);
-			this.checkBox3.TabIndex = 20;
-			this.checkBox3.Text = "Directional";
-			this.checkBox3.UseVisualStyleBackColor = true;
+			this._dir_checkBox.AutoSize = true;
+			this._dir_checkBox.Location = new System.Drawing.Point(62, 109);
+			this._dir_checkBox.Name = "_dir_checkBox";
+			this._dir_checkBox.Size = new System.Drawing.Size(76, 17);
+			this._dir_checkBox.TabIndex = 20;
+			this._dir_checkBox.Text = "Directional";
+			this._dir_checkBox.UseVisualStyleBackColor = true;
+			this._dir_checkBox.CheckedChanged += new System.EventHandler(this._dir_checkBox_CheckedChanged);
 			// 
-			// checkBox4
+			// _furn_checkBox
 			// 
-			this.checkBox4.AutoSize = true;
-			this.checkBox4.Location = new System.Drawing.Point(204, 57);
-			this.checkBox4.Name = "checkBox4";
-			this.checkBox4.Size = new System.Drawing.Size(47, 17);
-			this.checkBox4.TabIndex = 21;
-			this.checkBox4.Text = "Furn";
-			this.checkBox4.UseVisualStyleBackColor = true;
+			this._furn_checkBox.AutoSize = true;
+			this._furn_checkBox.Location = new System.Drawing.Point(62, 135);
+			this._furn_checkBox.Name = "_furn_checkBox";
+			this._furn_checkBox.Size = new System.Drawing.Size(47, 17);
+			this._furn_checkBox.TabIndex = 21;
+			this._furn_checkBox.Text = "Furn";
+			this._furn_checkBox.UseVisualStyleBackColor = true;
+			this._furn_checkBox.CheckedChanged += new System.EventHandler(this._furn_checkBox_CheckedChanged);
 			// 
-			// checkBox5
+			// _point_checkBox
 			// 
-			this.checkBox5.AutoSize = true;
-			this.checkBox5.Location = new System.Drawing.Point(133, 83);
-			this.checkBox5.Name = "checkBox5";
-			this.checkBox5.Size = new System.Drawing.Size(50, 17);
-			this.checkBox5.TabIndex = 22;
-			this.checkBox5.Text = "Point";
-			this.checkBox5.UseVisualStyleBackColor = true;
+			this._point_checkBox.AutoSize = true;
+			this._point_checkBox.Location = new System.Drawing.Point(204, 109);
+			this._point_checkBox.Name = "_point_checkBox";
+			this._point_checkBox.Size = new System.Drawing.Size(50, 17);
+			this._point_checkBox.TabIndex = 22;
+			this._point_checkBox.Text = "Point";
+			this._point_checkBox.UseVisualStyleBackColor = true;
+			this._point_checkBox.CheckedChanged += new System.EventHandler(this._point_checkBox_CheckedChanged);
 			// 
-			// checkBox6
+			// _base_checkBox
 			// 
-			this.checkBox6.AutoSize = true;
-			this.checkBox6.Location = new System.Drawing.Point(204, 83);
-			this.checkBox6.Name = "checkBox6";
-			this.checkBox6.Size = new System.Drawing.Size(50, 17);
-			this.checkBox6.TabIndex = 24;
-			this.checkBox6.Text = "Base";
-			this.checkBox6.UseVisualStyleBackColor = true;
+			this._base_checkBox.AutoSize = true;
+			this._base_checkBox.Location = new System.Drawing.Point(133, 135);
+			this._base_checkBox.Name = "_base_checkBox";
+			this._base_checkBox.Size = new System.Drawing.Size(50, 17);
+			this._base_checkBox.TabIndex = 24;
+			this._base_checkBox.Text = "Base";
+			this._base_checkBox.UseVisualStyleBackColor = true;
+			this._base_checkBox.CheckedChanged += new System.EventHandler(this._base_checkBox_CheckedChanged);
 			// 
-			// textBox5
+			// _flags_textBox
 			// 
-			this.textBox5.Location = new System.Drawing.Point(62, 107);
-			this.textBox5.Name = "textBox5";
-			this.textBox5.ReadOnly = true;
-			this.textBox5.Size = new System.Drawing.Size(65, 20);
-			this.textBox5.TabIndex = 26;
+			this._flags_textBox.Location = new System.Drawing.Point(62, 55);
+			this._flags_textBox.Name = "_flags_textBox";
+			this._flags_textBox.ReadOnly = true;
+			this._flags_textBox.Size = new System.Drawing.Size(65, 20);
+			this._flags_textBox.TabIndex = 26;
 			// 
-			// label1
+			// _unknown_label
 			// 
-			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(3, 136);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(53, 13);
-			this.label1.TabIndex = 27;
-			this.label1.Text = "Unknown";
+			this._unknown_label.AutoSize = true;
+			this._unknown_label.Location = new System.Drawing.Point(3, 162);
+			this._unknown_label.Name = "_unknown_label";
+			this._unknown_label.Size = new System.Drawing.Size(53, 13);
+			this._unknown_label.TabIndex = 27;
+			this._unknown_label.Text = "Unknown";
 			// 
-			// checkBox7
+			// _truePoint_checkBox
 			// 
-			this.checkBox7.AutoSize = true;
-			this.checkBox7.Enabled = false;
-			this.checkBox7.Location = new System.Drawing.Point(133, 109);
-			this.checkBox7.Name = "checkBox7";
-			this.checkBox7.Size = new System.Drawing.Size(75, 17);
-			this.checkBox7.TabIndex = 28;
-			this.checkBox7.Text = "True Point";
-			this.checkBox7.UseVisualStyleBackColor = true;
+			this._truePoint_checkBox.AutoSize = true;
+			this._truePoint_checkBox.Location = new System.Drawing.Point(133, 109);
+			this._truePoint_checkBox.Name = "_truePoint_checkBox";
+			this._truePoint_checkBox.Size = new System.Drawing.Size(75, 17);
+			this._truePoint_checkBox.TabIndex = 28;
+			this._truePoint_checkBox.Text = "True Point";
+			this._truePoint_checkBox.UseVisualStyleBackColor = true;
+			this._truePoint_checkBox.CheckedChanged += new System.EventHandler(this._truePoint_checkBox_CheckedChanged);
+			// 
+			// _bit12_label
+			// 
+			this._bit12_label.AutoSize = true;
+			this._bit12_label.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+			this._bit12_label.Location = new System.Drawing.Point(3, 84);
+			this._bit12_label.Name = "_bit12_label";
+			this._bit12_label.Size = new System.Drawing.Size(39, 13);
+			this._bit12_label.TabIndex = 29;
+			this._bit12_label.Text = "Bit 1/2";
+			// 
+			// _bit34_label
+			// 
+			this._bit34_label.AutoSize = true;
+			this._bit34_label.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+			this._bit34_label.Location = new System.Drawing.Point(3, 110);
+			this._bit34_label.Name = "_bit34_label";
+			this._bit34_label.Size = new System.Drawing.Size(39, 13);
+			this._bit34_label.TabIndex = 33;
+			this._bit34_label.Text = "Bit 3/4";
+			// 
+			// _bit56_label
+			// 
+			this._bit56_label.AutoSize = true;
+			this._bit56_label.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+			this._bit56_label.Location = new System.Drawing.Point(3, 136);
+			this._bit56_label.Name = "_bit56_label";
+			this._bit56_label.Size = new System.Drawing.Size(39, 13);
+			this._bit56_label.TabIndex = 34;
+			this._bit56_label.Text = "Bit 5/6";
 			// 
 			// LitEntryControl
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Controls.Add(this.checkBox7);
-			this.Controls.Add(this.label1);
-			this.Controls.Add(this.textBox5);
-			this.Controls.Add(this.checkBox6);
-			this.Controls.Add(this.checkBox5);
-			this.Controls.Add(this.checkBox4);
-			this.Controls.Add(this.checkBox3);
-			this.Controls.Add(this.checkBox2);
-			this.Controls.Add(this.checkBox1);
+			this.Controls.Add(this._bit56_label);
+			this.Controls.Add(this._bit34_label);
+			this.Controls.Add(this._bit12_label);
+			this.Controls.Add(this._point_checkBox);
+			this.Controls.Add(this._base_checkBox);
+			this.Controls.Add(this._truePoint_checkBox);
+			this.Controls.Add(this._unknown_label);
+			this.Controls.Add(this._flags_textBox);
+			this.Controls.Add(this._furn_checkBox);
+			this.Controls.Add(this._dir_checkBox);
+			this.Controls.Add(this._light_checkBox);
+			this.Controls.Add(this._shadow_checkBox);
 			this.Controls.Add(this._remove_button);
 			this.Controls.Add(this._enabled_label);
 			this.Controls.Add(this._enabled_checkBox);
@@ -267,12 +316,12 @@
 			this.Controls.Add(this._positionY_textBox);
 			this.Controls.Add(this._color_label);
 			this.Controls.Add(this._colorR_textBox);
-			this.Controls.Add(this._unknown2_textBox);
+			this.Controls.Add(this._unknown_textBox);
 			this.Controls.Add(this._flags_label);
 			this.Controls.Add(this._positionX_textBox);
 			this.Controls.Add(this._position_label);
 			this.Name = "LitEntryControl";
-			this.Size = new System.Drawing.Size(279, 185);
+			this.Size = new System.Drawing.Size(278, 214);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -283,7 +332,7 @@
         private System.Windows.Forms.Label _position_label;
         private System.Windows.Forms.TextBox _positionX_textBox;
         private System.Windows.Forms.Label _flags_label;
-        private System.Windows.Forms.TextBox _unknown2_textBox;
+        private System.Windows.Forms.TextBox _unknown_textBox;
         private System.Windows.Forms.TextBox _colorR_textBox;
         private System.Windows.Forms.Label _color_label;
         private System.Windows.Forms.TextBox _positionY_textBox;
@@ -293,14 +342,17 @@
         private System.Windows.Forms.CheckBox _enabled_checkBox;
         private System.Windows.Forms.Label _enabled_label;
         private System.Windows.Forms.Button _remove_button;
-		private System.Windows.Forms.CheckBox checkBox1;
-		private System.Windows.Forms.CheckBox checkBox2;
-		private System.Windows.Forms.CheckBox checkBox3;
-		private System.Windows.Forms.CheckBox checkBox4;
-		private System.Windows.Forms.CheckBox checkBox5;
-		private System.Windows.Forms.CheckBox checkBox6;
-		private System.Windows.Forms.TextBox textBox5;
-		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.CheckBox checkBox7;
+		private System.Windows.Forms.CheckBox _shadow_checkBox;
+		private System.Windows.Forms.CheckBox _light_checkBox;
+		private System.Windows.Forms.CheckBox _dir_checkBox;
+		private System.Windows.Forms.CheckBox _furn_checkBox;
+		private System.Windows.Forms.CheckBox _point_checkBox;
+		private System.Windows.Forms.CheckBox _base_checkBox;
+		private System.Windows.Forms.TextBox _flags_textBox;
+		private System.Windows.Forms.Label _unknown_label;
+		private System.Windows.Forms.CheckBox _truePoint_checkBox;
+		private System.Windows.Forms.Label _bit12_label;
+		private System.Windows.Forms.Label _bit34_label;
+		private System.Windows.Forms.Label _bit56_label;
 	}
 }

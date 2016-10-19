@@ -41,34 +41,88 @@ namespace LitEditor
             return !value0.Equals(value1);
         }
 
-        public static Float3 FromFileFormatPos(int x, int y, int z)
+        public static Float3 FromFileFormatPosition(int x, int y, int z)
         {
-            float m = 1.0f / 1024f;
-            Float3 result = new Float3(x * m, y * m, z * m);
-            return result;
+            Float3 result = new Float3();
+			result.X = LightUtil.FromFileFormatPosition(x);
+			result.Y = LightUtil.FromFileFormatPosition(y);
+			result.Z = LightUtil.FromFileFormatPosition(z);
+			return result;
         }
 
-        public void ToFileFormatPos(out int x, out int y, out int z)
+        public void ToFileFormatPosition(out int x, out int y, out int z)
         {
-            x = (int)Math.Round(X * 1024, MidpointRounding.AwayFromZero);
-            y = (int)Math.Round(Y * 1024, MidpointRounding.AwayFromZero);
-            z = (int)Math.Round(Z * 1024, MidpointRounding.AwayFromZero);
+			x = LightUtil.ToFileFormatPosition(X);
+			y = LightUtil.ToFileFormatPosition(Y);
+			z = LightUtil.ToFileFormatPosition(Z);
         }
 
-        public static Float3 FromFileFormatCol(int x, int y, int z)
+        public static Float3 FromFileFormatColor(int x, int y, int z)
         {
-            float m = 1.0f / 256f;
-            Float3 result = new Float3(x * m, y * m, z * m);
-            return result;
-        }
+			Float3 result = new Float3();
+			result.X = LightUtil.FromFileFormatColor(x);
+			result.Y = LightUtil.FromFileFormatColor(y);
+			result.Z = LightUtil.FromFileFormatColor(z);
+			return result;
+		}
 
-        public void ToFileFormatCol(out int x, out int y, out int z)
+        public void ToFileFormatColor(out int x, out int y, out int z)
         {
-            x = (int)Math.Round(X * 256, MidpointRounding.AwayFromZero);
-            y = (int)Math.Round(Y * 256, MidpointRounding.AwayFromZero);
-            z = (int)Math.Round(Z * 256, MidpointRounding.AwayFromZero);
-        }
+			x = LightUtil.ToFileFormatColor(X);
+			y = LightUtil.ToFileFormatColor(Y);
+			z = LightUtil.ToFileFormatColor(Z);
+		}
     }
+
+	[Flags]
+	public enum LightBehaviour
+	{
+		None,
+		Light,
+		Shadow,
+	}
+
+	public enum LightType
+	{
+		Directional,
+		Point,
+		TruePoint
+	}
+
+	[Flags]
+	public enum LightDomain
+	{
+		None,
+		Furn,
+		Base
+	}
+
+	public static class LightUtil
+	{
+		public static float FromFileFormatPosition(int value)
+		{
+			float result = value / 1024f;
+			return result;
+		}
+
+		public static int ToFileFormatPosition(float value)
+		{
+			int result = (int)Math.Round(value * 1024, MidpointRounding.AwayFromZero);
+			return result;
+		}
+
+		public static float FromFileFormatColor(int value)
+		{
+			float result = value / 256f;
+			return result;
+		}
+
+		public static int ToFileFormatColor(float value)
+		{
+			int result = (int)Math.Round(value * 256, MidpointRounding.AwayFromZero);
+			return result;
+		}
+	}
     
     public class Light
     {
@@ -77,9 +131,14 @@ namespace LitEditor
 
         private bool _enabled;
         private Float3 _position;
-        private int _unknown1;
-        private int _unknown2;
+        private LightBehaviour _behaviour;
+		private LightType _type;
+		private LightDomain _domain;
+
+        private float _unknown;
         private Float3 _color;
+
+		public bool ChangedEventEnabled { get; set; }
 
         public bool Enabled
         {
@@ -107,27 +166,73 @@ namespace LitEditor
             }
         }
 
-        public int Unknown1
+        public LightBehaviour Behaviour
         {
-            get { return _unknown1; }
+            get { return _behaviour; }
             set
             {
-                if (value != _unknown1)
+                if (value != _behaviour)
                 {
-                    _unknown1 = value;
+                    _behaviour = value;
                     FireChangedEvent();
                 }
             }
         }
 
-        public int Unknown2
+		public bool IsShadow
+		{
+			get { return (_behaviour & LightBehaviour.Shadow) == LightBehaviour.Shadow; }
+		}
+
+		public bool IsLight
+		{
+			get { return (_behaviour & LightBehaviour.Light) == LightBehaviour.Light; }
+		}
+
+		public LightType Type
+		{
+			get { return _type; }
+			set
+			{
+				if (value != _type)
+				{
+					_type = value;
+					FireChangedEvent();
+				}
+			}
+		}
+
+		public LightDomain Domain
+		{
+			get { return _domain; }
+			set
+			{
+				if (value != _domain)
+				{
+					_domain = value;
+					FireChangedEvent();
+				}
+			}
+		}
+
+		public bool IsFurn
+		{
+			get { return (_domain & LightDomain.Furn) == LightDomain.Furn; }
+		}
+
+		public bool IsBase
+		{
+			get { return (_domain & LightDomain.Base) == LightDomain.Base; }
+		}
+
+		public float Unknown
         {
-            get { return _unknown2; }
+            get { return _unknown; }
             set
             {
-                if (value != _unknown2)
+                if (value != _unknown)
                 {
-                    _unknown2 = value;
+                    _unknown = value;
                     FireChangedEvent();
                 }
             }
@@ -148,12 +253,90 @@ namespace LitEditor
         
         public Light()
         {
-            Enabled = true;
-            Position = new Float3(0, 1, 0);
-            Unknown1 = 0;
-            Unknown2 = 0;
-            Color = new Float3(1, 1, 1);
+            _enabled = true;
+            _position = new Float3(0, 1, 0);
+			_behaviour = LightBehaviour.None;
+			_type = LightType.Directional;
+			_domain = LightDomain.None;
+            _unknown = 0;
+            _color = new Float3(1, 1, 1);
         }
+
+		public void SetFlags(uint value)
+		{
+			LightBehaviour behaviour = LightBehaviour.None;
+			if ((value & 1) != 0)
+			{
+				behaviour |= LightBehaviour.Shadow;
+			}
+			if ((value & 2) != 0)
+			{
+				behaviour |= LightBehaviour.Light;
+			}
+
+			LightType type;
+			if ((value & 4) != 0)
+			{
+				type = LightType.Directional;
+			}
+			else if ((value & 8) != 0)
+			{
+				type = LightType.TruePoint;
+			}
+			else
+			{
+				type = LightType.Point;
+			}
+
+			LightDomain domain = LightDomain.None;
+			if ((value & 16) != 0)
+			{
+				domain |= LightDomain.Furn;
+			}
+			if ((value & 32) != 0)
+			{
+				domain |= LightDomain.Base;
+			}
+
+			_behaviour = behaviour;
+			_type = type;
+			_domain = domain;
+
+		}
+
+		public uint GetFlags()
+		{
+			uint result = 0;
+
+			if ((_behaviour & LightBehaviour.Shadow) == LightBehaviour.Shadow)
+			{
+				result |= 1;
+			}
+			if ((_behaviour & LightBehaviour.Light) == LightBehaviour.Light)
+			{
+				result |= 2;
+			}
+
+			if (_type == LightType.Directional)
+			{
+				result |= 4;
+			}
+			else if (_type == LightType.TruePoint)
+			{
+				result |= 8;
+			}
+
+			if ((_domain & LightDomain.Furn) == LightDomain.Furn)
+			{
+				result |= 16;
+			}
+			if ((_domain & LightDomain.Base) == LightDomain.Base)
+			{
+				result |= 32;
+			}
+
+			return result;
+		}
 
         public void RemoveFromProject()
         {
@@ -162,7 +345,7 @@ namespace LitEditor
 
         private void FireChangedEvent()
         {
-            if (Changed != null) Changed();
+            if (Changed != null && ChangedEventEnabled) Changed();
         }
     }
 }
