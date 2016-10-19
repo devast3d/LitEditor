@@ -277,10 +277,5 @@ namespace LitEditor
 		{
 			SetDomain(sender, LightDomain.Base);
 		}
-
-		private void _dir_checkBox_Validating(object sender, CancelEventArgs e)
-		{
-
-		}
 	}
 }

@@ -70,6 +70,7 @@
 			this._positionX_textBox.Name = "_positionX_textBox";
 			this._positionX_textBox.Size = new System.Drawing.Size(65, 20);
 			this._positionX_textBox.TabIndex = 1;
+			this._positionX_textBox.TextChanged += new System.EventHandler(this._positionX_textBox_TextChanged);
 			this._positionX_textBox.Validating += new System.ComponentModel.CancelEventHandler(this.FloatValidating);
 			// 
 			// _flags_label
@@ -87,6 +88,7 @@
 			this._unknown_textBox.Name = "_unknown_textBox";
 			this._unknown_textBox.Size = new System.Drawing.Size(65, 20);
 			this._unknown_textBox.TabIndex = 5;
+			this._unknown_textBox.TextChanged += new System.EventHandler(this._unknown_textBox_TextChanged);
 			this._unknown_textBox.Validating += new System.ComponentModel.CancelEventHandler(this.FloatValidating);
 			// 
 			// _colorR_textBox
@@ -95,6 +97,7 @@
 			this._colorR_textBox.Name = "_colorR_textBox";
 			this._colorR_textBox.Size = new System.Drawing.Size(65, 20);
 			this._colorR_textBox.TabIndex = 6;
+			this._colorR_textBox.TextChanged += new System.EventHandler(this._colorR_textBox_TextChanged);
 			this._colorR_textBox.Validating += new System.ComponentModel.CancelEventHandler(this.FloatValidating);
 			// 
 			// _color_label
@@ -112,6 +115,7 @@
 			this._positionY_textBox.Name = "_positionY_textBox";
 			this._positionY_textBox.Size = new System.Drawing.Size(65, 20);
 			this._positionY_textBox.TabIndex = 8;
+			this._positionY_textBox.TextChanged += new System.EventHandler(this._positionY_textBox_TextChanged);
 			this._positionY_textBox.Validating += new System.ComponentModel.CancelEventHandler(this.FloatValidating);
 			// 
 			// _positionZ_textBox
@@ -120,6 +124,7 @@
 			this._positionZ_textBox.Name = "_positionZ_textBox";
 			this._positionZ_textBox.Size = new System.Drawing.Size(65, 20);
 			this._positionZ_textBox.TabIndex = 9;
+			this._positionZ_textBox.TextChanged += new System.EventHandler(this._positionZ_textBox_TextChanged);
 			this._positionZ_textBox.Validating += new System.ComponentModel.CancelEventHandler(this.FloatValidating);
 			// 
 			// _colorG_textBox
@@ -128,6 +133,7 @@
 			this._colorG_textBox.Name = "_colorG_textBox";
 			this._colorG_textBox.Size = new System.Drawing.Size(65, 20);
 			this._colorG_textBox.TabIndex = 10;
+			this._colorG_textBox.TextChanged += new System.EventHandler(this._colorG_textBox_TextChanged);
 			this._colorG_textBox.Validating += new System.ComponentModel.CancelEventHandler(this.FloatValidating);
 			// 
 			// _colorB_textBox
@@ -136,6 +142,7 @@
 			this._colorB_textBox.Name = "_colorB_textBox";
 			this._colorB_textBox.Size = new System.Drawing.Size(65, 20);
 			this._colorB_textBox.TabIndex = 11;
+			this._colorB_textBox.TextChanged += new System.EventHandler(this._colorB_textBox_TextChanged);
 			this._colorB_textBox.Validating += new System.ComponentModel.CancelEventHandler(this.FloatValidating);
 			// 
 			// _enabled_checkBox
@@ -146,6 +153,7 @@
 			this._enabled_checkBox.Size = new System.Drawing.Size(15, 14);
 			this._enabled_checkBox.TabIndex = 13;
 			this._enabled_checkBox.UseVisualStyleBackColor = true;
+			this._enabled_checkBox.CheckedChanged += new System.EventHandler(this._enabled_checkBox_CheckedChanged);
 			// 
 			// _enabled_label
 			// 
